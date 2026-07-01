@@ -32,8 +32,8 @@ int main() {
 
 #pragma omp parallel for
   for (std::uint32_t i = 0; i < N; ++i) {
-    hx[i] = 1.0f;
-    hy[i] = 2.0f;
+    hx[i] = 1.0f * i;
+    hy[i] = 2.0f / (i + 1);
   }
 
   float *dx = nullptr;
@@ -71,6 +71,9 @@ int main() {
   std::printf("...\n");
   std::printf("x+y: ");
   for (std::uint32_t i = 0; i < 10; i++) std::printf("%+e ", hz[i]);
+  std::printf("...\n");
+  std::printf("exp: ");
+  for (std::uint32_t i = 0; i < 10; i++) std::printf("%+e ", hx[i] + hy[i]);
   std::printf("...\n");
 
   CUDA_CHECK(cudaFree(dx));
